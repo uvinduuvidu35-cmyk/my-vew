@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaming m4k Store - Browse Accounts</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fa;
+      color: #333;
+    }
+
+    /* Header */
+    .header {
+      height: 62px;
+      background: #fff;
+      border-bottom: 1px solid #e1e8ed;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #0d47a1;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #64b5f6;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #555;
+      font-size: 14px;
+      padding: 9px 12px;
+      border-radius: 7px;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: #e3f2fd;
+      color: #0d47a1;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 9px 16px;
+      border-radius: 7px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn.login {
+      color: #555;
+    }
+
+    .btn.signup {
+      background: linear-gradient(90deg, #0d47a1, #00b0ff);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 10px rgba(13, 71, 161, 0.2);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 48px 20px 25px;
+      background: #fff;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      color: #0d47a1;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Filters */
+    .filters {
+      background: #fff;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 12px 5%;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .filter {
+      border: 1px solid #bbdefb;
+      background: #f4f9ff;
+      padding: 8px 14px;
+      border-radius: 18px;
+      font-size: 12px;
+      color: #0d47a1;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .filter.active {
+      background: linear-gradient(90deg, #0d47a1, #00b0ff);
+      color: #fff;
+      border-color: #0d47a1;
+    }
+
+    .price-input {
+      width: 95px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      padding: 9px;
+      outline: none;
+      font-size: 12px;
+    }
+
+    .apply {
+      background: linear-gradient(90deg, #0d47a1, #00b0ff);
+      border: none;
+      color: white;
+      padding: 9px 17px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Main */
+    .container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 18px 20px 50px;
+    }
+
+    .result-count {
+      font-size: 14px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .result-count span {
+      color: #777;
+      font-weight: normal;
+    }
+
+    /* Cards Grid */
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    /* Card Link Wrapper */
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
+      transition: 0.25s;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-image {
+      height: 190px;
+      position: relative;
+      background: #181818;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .status-badge.sold {
+      background: #ffe4e4;
+      color: #dc3b3b;
+    }
+
+    .status-badge.available {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status-badge.onsale {
+      background: #fff8e1;
+      color: #f57f17;
+    }
+
+    .level-badge {
+      position: absolute;
+      right: 9px;
+      bottom: 9px;
+      background: #0d47a1;
+      color: white;
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+
+    .card-content {
+      padding: 13px;
+    }
+
+    .account-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .account-name::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      border: 2px solid #00b0ff;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: -2px;
+    }
+
+    .prime {
+      display: inline-block;
+      background: #1565c0;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      color: #555;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: #0d47a1;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .accounts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav {
+        gap: 5px;
+      }
+
+      .header {
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        height: auto;
+        min-height: 60px;
+        flex-wrap: wrap;
+        padding: 12px 15px;
+        gap: 10px;
+      }
+
+      .nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .auth-buttons {
+        margin-left: auto;
+      }
+
+      .hero {
+        padding: 30px 15px 20px;
+      }
+
+      .hero h1 {
+        font-size: 23px;
+      }
+
+      .accounts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-image {
+        height: 210px;
+      }
+
+      .filters {
+        padding: 12px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="d.html" class="logo">
+      <img src="https://i.pinimg.com/736x/51/2d/2f/512d2fa49ba4a8b4f24f50e690d8ded7.jpg" alt="Logo" class="logo-img">
+      GAMING M4K STORE
+    </a>
+
+    <nav class="nav">
+      <a href="d.html">⌂ Home</a>
+      <a href="#" class="active">🎮 Accounts</a>
+      <a href="#sale">🏷 On Sale</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button class="btn login" onclick="handleLogin()">↪ Login</button>
+      <button class="btn signup" onclick="handleSignUp()">✦ Sign Up</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Browse FF Accounts</h1>
+    <p>Explore verified accounts — use filters to find your perfect match</p>
+  </section>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button class="filter" data-status="available" onclick="setStatusFilter('available', this)">Available</button>
+    <button class="filter" data-status="onsale" onclick="setStatusFilter('onsale', this)">On Sale</button>
+    <button class="filter active" data-status="sold" onclick="setStatusFilter('sold', this)">Sold</button>
+    <button class="filter" data-status="all" onclick="setStatusFilter('all', this)">All</button>
+
+    <input class="price-input" id="minPrice" type="number" placeholder="Min LKR">
+    <input class="price-input" id="maxPrice" type="number" placeholder="Max LKR">
+
+    <button class="filter">🏆 Grand Prize</button>
+    <button class="filter">Newest ▾</button>
+    <button class="apply" onclick="filterAccounts()">🔍 Apply</button>
+  </div>
+
+  <!-- Accounts -->
+  <main class="container">
+
+    <div class="result-count">
+      <span id="countDisplay">Showed accounts</span>
+    </div>
+
+    <div class="accounts-grid" id="accountsGrid">
+
+      <!-- Card 1 -->
+      <a href="s.html" class="card-link card" data-status="sold" data-price="14000">
+        <div class="card-image">
+          <img src="https://placehold.co/600x350/0d47a1/fff?text=FF+Account+N581" alt="Account">
+          <span class="status-badge sold">SOLD</span>
+          <span class="level-badge">🔒 P6</span>
+        </div>
+
+        <div class="card-content">
+          <div class="account-name">N581</div>
+          <span class="prime">♟ Prime Level 6</span>
+
+          <div class="stats">
+            <span>⌁ LV 65</span>
+            <span>♙ Heroic</span>
+            <span>◉ 321 Skins</span>
+            <span>♧ 252 Bundles</span>
+          </div>
+
+          <div class="price">LKR 14,000</div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="s.html" class="card-link card" data-status="sold" data-price="14000">
+        <div class="card-image">
+          <img src="https://placehold.co/600x350/0288d1/fff?text=FF+Account+N577" alt="Account">
+          <span class="status-badge sold">SOLD</span>
+          <span class="level-badge">🔒 P5</span>
+        </div>
+
+        <div class="card-content">
+          <div class="account-name">N577</div>
+          <span class="prime">♟ Prime Level 5</span>
+
+          <div class="stats">
+            <span>⌁ LV 67</span>
+            <span>♙ Heroic</span>
+            <span>◉ 334 Skins</span>
+            <span>♧ 328 Bundles</span>
+          </div>
+
+          <div class="price">LKR 14,000</div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="s.html" class="card-link card" data-status="available" data-price="55000">
+        <div class="card-image">
+          <img src="https://placehold.co/600x350/0097a7/fff?text=FF+Account+N588" alt="Account">
+          <span class="status-badge available">AVAILABLE</span>
+          <span class="level-badge">🔒 P8</span>
+        </div>
+
+        <div class="card-content">
+          <div class="account-name">N588</div>
+          <span class="prime">♟ Prime Level 8 ★</span>
+
+          <div class="stats">
+            <span>⌁ LV 78</span>
+            <span>♙ Heroic</span>
+            <span>◉ 620 Skins</span>
+            <span>♧ 586 Bundles</span>
+          </div>
+
+          <div class="price">LKR 55,000</div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="s.html" class="card-link card" data-status="onsale" data-price="4500">
+        <div class="card-image">
+          <img src="https://placehold.co/600x350/00acc1/fff?text=FF+Account+N587" alt="Account">
+          <span class="status-badge onsale">ON SALE</span>
+          <span class="level-badge">🔒 P4</span>
+        </div>
+
+        <div class="card-content">
+          <div class="account-name">N587</div>
+          <span class="prime">♟ Prime Level 4</span>
+
+          <div class="stats">
+            <span>⌁ LV 54</span>
+            <span>♙ Heroic</span>
+            <span>◉ 75 Skins</span>
+            <span>♧ 34 Bundles</span>
+          </div>
+
+          <div class="price">LKR 4,500</div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a href="s.html" class="card-link card" data-status="sold" data-price="22000">
+        <div class="card-image">
+          <img src="https://placehold.co/600x350/03a9f4/fff?text=FF+Account+N586" alt="Account">
+          <span class="status-badge sold">SOLD</span>
+          <span class="level-badge">🔒 P6</span>
+        </div>
+
+        <div class="card-content">
+          <div class="account-name">N586</div>
+          <span class="prime">♟ Prime Level 6</span>
+
+          <div class="stats">
+            <span>⌁ LV 72</span>
+            <span>♙ Heroic</span>
+            <span>◉ 458 Skins</span>
+            <span>♧ 457 Bundles</span>
+          </div>
+
+          <div class="price">LKR 22,000</div>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a href="s.html" class="card-link card" data-status="available" data-price="7500">
+        <div class="card-image">
+          <img src="https://placehold.co/600x350/00bcd4/fff?text=FF+Account+N437" alt="Account">
+          <span class="status-badge available">AVAILABLE</span>
+          <span class="level-badge">🔒 P5</span>
+        </div>
+
+        <div class="card-content">
+          <div class="account-name">N437</div>
+          <span class="prime">♟ Prime Level 5</span>
+
+          <div class="stats">
+            <span>⌁ LV 64</span>
+            <span>♙ Heroic</span>
+            <span>◉ 312 Skins</span>
+            <span>♧ 237 Bundles</span>
+          </div>
+
+          <div class="price">LKR 7,500</div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <script>
+    let currentStatus = 'sold';
+
+    function handleLogin() {
+      alert('Redirecting to Login page...');
+    }
+
+    function handleSignUp() {
+      alert('Redirecting to Sign Up page...');
+    }
+
+    function setStatusFilter(status, element) {
+      document.querySelectorAll('.filters .filter[data-status]').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      element.classList.add('active');
+      currentStatus = status;
+      filterAccounts();
+    }
+
+    function filterAccounts() {
+      const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+      const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+      const cards = document.querySelectorAll('.card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cardStatus = card.getAttribute('data-status');
+        const cardPrice = parseFloat(card.getAttribute('data-price'));
+
+        const matchStatus = (currentStatus === 'all') || (cardStatus === currentStatus);
+        const matchPrice = (cardPrice >= minPrice) && (cardPrice <= maxPrice);
+
+        if (matchStatus && matchPrice) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('countDisplay').innerText = visibleCount + " accounts found";
+    }
+
+    // Run filter on initial load
+    filterAccounts();
+  </script>
+
+</body>
+</html>
