@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMING m4k STORE - Free Fire Marketplace</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#222;
+    background:#fff;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+.topbar{
+    height:70px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    border-bottom:1px solid #eee;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#0d47a1;
+    font-weight:bold;
+}
+
+.brand-logo{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover; /* ඉමේජ් එක කපී යන්නේ නැතිව ලස්සනට පෙනීමට */
+    border:2px solid #90caf9;
+}
+
+.brand small{
+    display:block;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.brand strong{
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+    font-size:13px;
+    color:#555;
+}
+
+.nav a:hover{
+    color:#1976d2;
+}
+
+.actions{
+    display:flex;
+    gap:9px;
+}
+
+.btn{
+    padding:11px 18px;
+    border-radius:9px;
+    font-weight:bold;
+    font-size:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+}
+
+.btn-outline{
+    background:#fff;
+    border:1px solid #ddd;
+    color:#555;
+}
+
+.btn-red{
+    color:#fff;
+    background:linear-gradient(90deg,#0d47a1,#42a5f5);
+    box-shadow:0 7px 18px #0d47a133;
+}
+
+.notice{
+    height:32px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(90deg,#0a2540,#2196f3);
+    color:#fff;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:.5px;
+}
+
+
+/* HERO */
+
+.hero{
+    min-height:565px;
+    position:relative;
+    overflow:hidden;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+
+    background:
+        radial-gradient(
+            circle at 12% 52%,
+            rgba(13, 71, 161, 0.8) 0 7%,
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(10, 37, 64, 0.8) 0,
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(3, 16, 33, 0.85),
+            rgba(1, 5, 10, 0.85) 62%,
+            rgba(2, 11, 23, 0.85)
+        ),
+        url(https://images.wallpapersden.com/image/download/free-fire-2023-gaming_bmZqaW6UmZqaraWkpJRmbmdlrWZlbWU.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:760px;
+    padding:55px 20px;
+}
+
+.live{
+    display:inline-block;
+    padding:5px 11px;
+    border:1px solid #1976d2;
+    border-radius:20px;
+    background:#0a254099;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:14px;
+}
+
+.hero-kicker{
+    font-size:21px;
+    letter-spacing:3px;
+    color:#ddd;
+    font-weight:600;
+}
+
+.hero h1{
+    font-size:58px;
+    line-height:.98;
+    letter-spacing:2px;
+    margin:10px 0 18px;
+    text-shadow:0 4px 18px #000;
+    font-weight:900;
+}
+
+.hero p{
+    font-size:13px;
+    color:#ddd;
+    max-width:560px;
+    margin:0 auto 20px;
+    line-height:1.6;
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    margin:20px auto 0;
+    width:max-content;
+    max-width:100%;
+    border:1px solid #1976d2;
+    border-radius:12px;
+    overflow:hidden;
+    background:#0a2540cc;
+}
+
+.stat{
+    padding:9px 18px;
+    border-right:1px solid #1565c0;
+}
+
+.stat:last-child{
+    border:0;
+}
+
+.stat b{
+    display:block;
+    font-size:17px;
+}
+
+.stat span{
+    font-size:8px;
+    color:#aaa;
+}
+
+
+/* INFO STRIP (MOVING ANIMATION) */
+
+.feature-strip{
+    background:linear-gradient(90deg,#0d47a1,#42a5f5);
+    color:#fff;
+    padding:10px 0;
+    font-size:10px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+}
+
+.feature-strip-track{
+    display:flex;
+    gap:110px; /* ටෙක්ස්ට් අතර පරතරය වැඩි කර ඇත */
+    padding-right:100px;
+    animation: scrollText 20s linear infinite;
+    flex-shrink: 0;
+}
+
+.feature-strip span{
+    flex-shrink:0;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+/* SECTIONS */
+
+section{
+    padding:62px 5%;
+}
+
+.section-head{
+    text-align:center;
+    margin-bottom:34px;
+}
+
+.eyebrow{
+    display:inline-block;
+    color:#1565c0;
+    background:#e3f2fd;
+    border:1px solid #bbdefb;
+    border-radius:20px;
+    padding:5px 11px;
+    font-size:9px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:12px;
+}
+
+.section-head h2{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.section-head p{
+    font-size:12px;
+    color:#777;
+}
+
+
+/* FEATURED */
+
+.featured{
+    min-height:390px;
+}
+
+.empty{
+    text-align:center;
+    color:#bbb;
+    padding:25px;
+}
+
+.empty .star{
+    font-size:38px;
+    color:#ddd;
+    margin-bottom:10px;
+}
+
+.empty p{
+    font-size:11px;
+}
+
+.center{
+    text-align:center;
+    margin-top:20px;
+}
+
+
+/* HOW IT WORKS */
+
+.how{
+    background:#fafafa;
+}
+
+.steps{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.step{
+    background:#fff;
+    border:1px solid #e9e9e9;
+    border-radius:14px;
+    padding:18px;
+    display:flex;
+    gap:13px;
+    box-shadow:0 2px 8px #00000008;
+}
+
+.num{
+    flex:0 0 30px;
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    background:linear-gradient(135deg,#0d47a1,#42a5f5);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.step h3{
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.step p{
+    font-size:10px;
+    color:#777;
+    line-height:1.5;
+}
+
+
+/* TRUST */
+
+.trust{
+    text-align:center;
+    min-height:230px;
+}
+
+
+/* FLOATING BUTTONS */
+
+.bubble{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#0d47a1,#90caf9);
+    box-shadow:0 8px 25px #0004;
+    z-index:30;
+}
+
+.chat{
+    position:fixed;
+    right:22px;
+    bottom:90px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#0d47a1,#42a5f5);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:30;
+    box-shadow:0 7px 20px #0d47a155;
+}
+
+
+/* FOOTER */
+
+footer{
+    background:#020b17;
+    color:#aaa;
+    padding:30px 5%;
+    text-align:center;
+    font-size:11px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .topbar{
+        height:auto;
+        min-height:64px;
+        padding:10px 4%;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .actions .btn{
+        padding:9px 12px;
+    }
+
+    .hero{
+        min-height:530px;
+    }
+
+    .hero-kicker{
+        font-size:16px;
+        letter-spacing:2px;
+    }
+
+    .hero h1{
+        font-size:46px;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    section{
+        padding:50px 4%;
+    }
+}
+
+@media(max-width:480px){
+
+    .brand small{
+        display:none;
+    }
+
+    .brand strong{
+        font-size:11px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .hero p{
+        font-size:11px;
+    }
+
+    .stat{
+        padding:8px 11px;
+    }
+
+    .stat b{
+        font-size:15px;
+    }
+
+    .section-head h2{
+        font-size:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header class="topbar">
+
+    <a class="brand" href="#">
+
+        <img class="brand-logo" src="https://i.pinimg.com/736x/51/2d/2f/512d2fa49ba4a8b4f24f50e690d8ded7.jpg" alt="Logo">
+
+        <span>
+            <small>GAMING</small>
+            <strong>M4K STORE</strong>
+        </span>
+
+    </a>
+
+    <nav class="nav">
+
+        <a href="#home">⌂ Home</a>
+        <a href="#accounts">▣ Accounts</a>
+        <a href="#sale">♡ On Sale</a>
+
+    </nav>
+
+    <div class="actions">
+
+        <button
+            class="btn btn-outline"
+            onclick="alert('Login page')">
+            ↪ Login
+        </button>
+
+        <button
+            class="btn btn-red"
+            onclick="alert('Sign up page')">
+            ♙ Sign Up
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- NOTICE -->
+
+<div class="notice">
+    ⚡ WELCOME TO GAMING m4k STORE 🔥
+</div>
+
+
+<main>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="live">
+            ● LIVE · REAL-TIME STOCK
+        </div>
+
+        <div class="hero-kicker">
+            FREE FIRE MARKETPLACE
+        </div>
+
+        <h1>
+            GAMING m4k<br>
+            STORE
+        </h1>
+
+        <p>
+            Buy verified Free Fire accounts —
+            fast, secure, best rates in Sri Lanka.
+        </p>
+
+        <a
+            class="btn btn-red"
+            href="home.html">
+            ▣ Browse Accounts
+        </a>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <b>5+</b>
+                <span>AVAILABLE</span>
+            </div>
+
+            <div class="stat">
+                <b>102+</b>
+                <span>SOLD</span>
+            </div>
+
+            <div class="stat">
+                <b>102+</b>
+                <span>HAPPY BUYERS</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INFO STRIP (MOVING) -->
+
+<div class="feature-strip">
+    <div class="feature-strip-track">
+        <span>◉ Real-Time Info</span>
+        <span>◉ WhatsApp Support</span>
+        <span>♙ Secure Payments</span>
+        <span>♧ 24/7 Live Chat</span>
+        <span>♛ Grand Prize Accounts</span>
+        <span>☆ Premium Quality</span>
+    </div>
+    <div class="feature-strip-track">
+        <span>◉ Real-Time Info</span>
+        <span>◉ WhatsApp Support</span>
+        <span>♙ Secure Payments</span>
+        <span>♧ 24/7 Live Chat</span>
+        <span>♛ Grand Prize Accounts</span>
+        <span>☆ Premium Quality</span>
+    </div>
+</div>
+
+
+<!-- FEATURED ACCOUNTS -->
+
+<section
+    class="featured"
+    id="accounts">
+
+    <div class="section-head">
+
+        <span class="eyebrow">
+            ☆ ADMIN PICKS
+        </span>
+
+        <h2>
+            Featured Accounts
+        </h2>
+
+        <p>
+            Hand-picked premium accounts
+            with exclusive items
+        </p>
+
+    </div>
+
+
+    <div class="empty">
+
+        <div class="star">
+            ☆
+        </div>
+
+        <p>
+            No featured accounts right now —
+            check back soon!
+        </p>
+
+    </div>
+
+
+    <div class="center">
+
+        <a
+            class="btn btn-red"
+            href="home.html"
+            ▦ Browse All Accounts
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section
+    class="how"
+    id="sale">
+
+    <div class="section-head">
+
+        <span class="eyebrow">
+            ◉ STEP BY STEP
+        </span>
+
+        <h2>
+            How It Works
+        </h2>
+
+        <p>
+            Simple steps — buy an account
+            or top up your diamonds
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+
+        <article class="step">
+
+            <div class="num">
+                1
+            </div>
+
+            <div>
+
+                <h3>
+                    Create Account
+                </h3>
+
+                <p>
+                    Register or sign in with Google —
+                    takes under a minute.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="step">
+
+            <div class="num">
+                2
+            </div>
+
+            <div>
+
+                <h3>
+                    Browse & Choose
+                </h3>
+
+                <p>
+                    Filter by level, rank, bundles
+                    and verify with real-time account info.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="step">
+
+            <div class="num">
+                3
+            </div>
+
+            <div>
+
+                <h3>
+                    Pay & Upload Slip
+                </h3>
+
+                <p>
+                    Bank transfer and upload
+                    your payment slip for verification.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="step">
+
+            <div class="num">
+                4
+            </div>
+
+            <div>
+
+                <h3>
+                    Receive Credentials
+                </h3>
+
+                <p>
+                    Admin confirms and sends
+                    login details via WhatsApp.
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- TRUSTED -->
+
+<section class="trust">
+
+    <div class="section-head">
+
+        <span class="eyebrow">
+            ⌁ WHY CHOOSE US
+        </span>
+
+        <h2>
+            Trusted by Thousands
+        </h2>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- FLOATING BUTTONS -->
+
+<div class="chat">
+    ◌
+</div>
+
+<div class="bubble"></div>
+
+
+<!-- FOOTER -->
+
+<footer>
+    © 2026 GAMING m4k Store — Free Fire Marketplace
+</footer>
+
+
+<script>
+
+/* Smooth scrolling */
+
+document
+.querySelectorAll('a[href^="#"]')
+.forEach(link => {
+
+    link.addEventListener('click', function(e){
+
+        const id =
+            this.getAttribute('href');
+
+        if(id.length > 1){
+
+            const target =
+                document.querySelector(id);
+
+            if(target){
+
+                e.preventDefault();
+
+                target.scrollIntoView({
+                    behavior:'smooth'
+                });
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
